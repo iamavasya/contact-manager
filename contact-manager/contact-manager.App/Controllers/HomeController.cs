@@ -1,4 +1,4 @@
-using contact_manager.Models;
+using contact_manager.BusinessLogic.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
@@ -6,27 +6,38 @@ namespace contact_manager.App.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
-
-        public HomeController(ILogger<HomeController> logger)
+        private readonly IPersonService _personService;
+        public HomeController(IPersonService personService)
         {
-            _logger = logger;
+            _personService = personService;
         }
 
+        [HttpGet]
         public IActionResult Index()
         {
             return View();
         }
 
-        public IActionResult Privacy()
+        [HttpPost]
+        public async Task<IActionResult> UploadCsv(IFormFile file)
         {
-            return View();
+            try
+            {
+                await _personService.UploadCsvAsync(file);
+            }
+            catch (ArgumentException ex)
+            {
+                ModelState.AddModelError("", ex.Message);
+                return View();
+            }
+
+            return RedirectToAction("ViewDB");
         }
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
+        public async Task<IActionResult> ViewDB()
         {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            var people = await _personService.GetPeopleAsync();
+            return View(people);
         }
     }
 }

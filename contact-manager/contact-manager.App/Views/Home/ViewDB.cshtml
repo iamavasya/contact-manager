@@ -1,0 +1,33 @@
+﻿@model IEnumerable<contact_manager.Infrastructure.Models.Person>
+
+<input type="text" id="filterInput" placeholder="Search..." />
+
+<table id="peopleTable" class="table">
+    <thead>
+        <tr>
+            <th onclick="sortTable(0)">Name</th>
+            <th onclick="sortTable(1)">Date of Birth</th>
+            <th onclick="sortTable(2)">Married</th>
+            <th onclick="sortTable(3)">Phone</th>
+            <th onclick="sortTable(4)">Salary</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var person in Model)
+        {
+            <tr data-id="@person.Id">
+                <td contenteditable="true">@person.Name</td>
+                <td contenteditable="true">@person.DateOfBirth.ToString("yyyy-MM-dd")</td>
+                <td>
+                    <input type="checkbox" @(person.Married ? "checked" : "") onclick="updateCheckbox(this)" />
+                </td>
+                <td contenteditable="true">@person.Phone</td>
+                <td contenteditable="true">@person.Salary</td>
+                <td>
+                    <button onclick="deleteRow(@person.Id)">Delete</button>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

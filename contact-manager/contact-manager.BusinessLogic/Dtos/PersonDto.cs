@@ -4,11 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace contact_manager.Infrastructure.Models
+namespace contact_manager.BusinessLogic.Dtos
 {
-    public class Person
+    public class PersonDto
     {
-        public int Id { get; set; }
         public string? Name { get; set; }
         public DateTime DateOfBirth { get; set; }
         public bool Married { get; set; }
