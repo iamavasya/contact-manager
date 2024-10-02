@@ -91,7 +91,6 @@ function attachBlurEventHandlers() {
 document.addEventListener("DOMContentLoaded", attachBlurEventHandlers);
 
 async function deleteRow(personId, event) {
-    event.preventDefault();
 
     if (confirm('Are you sure you want to delete this record?')) {
         isDeleting = true;
@@ -112,5 +111,4 @@ async function deleteRow(personId, event) {
             isDeleting = false;
         }
     }
-    event.stopPropagation();
 }
