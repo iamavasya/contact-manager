@@ -1,6 +1,6 @@
 ﻿@model IEnumerable<contact_manager.Infrastructure.Models.Person>
 
-<input type="text" id="filterInput" placeholder="Search..." />
+<input type="text" id="filterInput" placeholder="Search..." onkeyup="filterTable()" />
 
 <table id="peopleTable" class="table">
     <thead>
@@ -25,9 +25,11 @@
                 <td contenteditable="true">@person.Phone</td>
                 <td contenteditable="true">@person.Salary</td>
                 <td>
-                    <button onclick="deleteRow(@person.Id)">Delete</button>
+                    <button onclick="deleteRow(@person.Id, event)">Delete</button>
                 </td>
             </tr>
         }
     </tbody>
 </table>
+
+<script src="~/js/viewdb.js"></script>

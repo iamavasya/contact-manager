@@ -12,5 +12,8 @@ namespace contact_manager.BusinessLogic.Interfaces
     {
         Task UploadCsvAsync(IFormFile file);
         Task<IEnumerable<Person>> GetPeopleAsync();
+        Task<Person?> GetPersonAsync(int id);
+        Task<bool> UpdatePersonAsync(Person person);
+        Task<bool> DeletePersonAsync(int id);
     }
 }

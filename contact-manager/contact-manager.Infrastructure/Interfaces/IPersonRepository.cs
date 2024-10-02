@@ -11,5 +11,8 @@ namespace contact_manager.Infrastructure.Interfaces
     {
         Task AddPeopleAsync(IEnumerable<Person> person);
         Task<IEnumerable<Person>> GetPeopleAsync();
+        Task<Person?> GetPersonAsync(int id);
+        Task<bool> UpdatePersonAsync(Person person);
+        Task<bool> DeletePersonAsync(Person person);
     }
 }

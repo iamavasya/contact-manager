@@ -1,5 +1,7 @@
 using contact_manager.BusinessLogic.Interfaces;
+using contact_manager.Infrastructure.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 
 namespace contact_manager.App.Controllers
@@ -34,6 +36,28 @@ namespace contact_manager.App.Controllers
             return RedirectToAction("ViewDB");
         }
 
+        [HttpPost]
+        public async Task<IActionResult> Update([FromBody] Person updatedPerson)
+        {
+            if (ModelState.IsValid)
+            {
+                var response = await _personService.UpdatePersonAsync(updatedPerson);
+                if (response) return Ok();
+                else return NotFound();
+            }
+            return BadRequest(ModelState);
+        }
+
+        [HttpDelete]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var response = await _personService.DeletePersonAsync(id);
+            if (response) return Ok();
+            else return NotFound();
+        }
+
+
+        [HttpGet]
         public async Task<IActionResult> ViewDB()
         {
             var people = await _personService.GetPeopleAsync();

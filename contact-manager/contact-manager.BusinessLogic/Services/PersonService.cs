@@ -50,5 +50,37 @@ namespace contact_manager.BusinessLogic.Services
             return await _personRepository.GetPeopleAsync();
         }
 
+        public async Task<Person?> GetPersonAsync(int id)
+        {
+            return await _personRepository.GetPersonAsync(id);
+        }
+
+        public async Task<bool> UpdatePersonAsync(Person updatedPerson)
+        {
+            var person = await GetPersonAsync(updatedPerson.Id);
+            if (person == null)
+            {
+                return false;
+            }
+            person.Name = updatedPerson.Name;
+            person.DateOfBirth = updatedPerson.DateOfBirth;
+            person.Married = updatedPerson.Married;
+            person.Phone = updatedPerson.Phone;
+            person.Salary = updatedPerson.Salary;
+
+            return await _personRepository.UpdatePersonAsync(person);
+        }
+
+        public async Task<bool> DeletePersonAsync(int id)
+        {
+            var person = await GetPersonAsync(id);
+            if (person == null)
+            {
+                return false;
+            }
+
+            _personRepository.DeletePersonAsync(person);
+            return true;
+        }
     }
 }
