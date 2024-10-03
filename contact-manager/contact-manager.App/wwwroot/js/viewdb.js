@@ -55,7 +55,7 @@ async function saveChanges(row) {
         dateOfBirth: cells[1].innerText,
         married: cells[2].getElementsByTagName("input")[0].checked,
         phone: cells[3].innerText,
-        salary: parseFloat(cells[4].innerText.replace(/,/g, ''))
+        salary: parseFloat(cells[4].innerText.replace(",", "."))
     };
 
     try {
