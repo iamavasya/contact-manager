@@ -36,7 +36,7 @@ namespace contact_manager.App.Controllers
             return RedirectToAction("ViewDB");
         }
 
-        [HttpPost]
+        [HttpPut]
         public async Task<IActionResult> Update([FromBody] Person updatedPerson)
         {
             if (ModelState.IsValid)
